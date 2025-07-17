@@ -64,13 +64,57 @@ class Board:
                 self[i] = 0
         return moves
 
+    def minimax(self, player):
+        """Return the minimax score for the current board for the given player (1 for 'o', 2 for 'x')."""
+        # Check for terminal state
+        if self.has_winner():
+            # If the previous move was by the opponent, the opponent won
+            return -1
+        if all(self[i] != 0 for i in range(9)):
+            return 0  # Draw
+        # Try all possible moves
+        scores = []
+        for i in range(9):
+            if self[i] == 0:
+                self[i] = player
+                score = -self.minimax(2 if player == 1 else 1)
+                scores.append(score)
+                self[i] = 0
+        return max(scores) if scores else 0
+
     def best_moves_for_o(self):
-        """Return a list of cell indices where 'o' can play and immediately win."""
-        return self.winning_moves(player=1)
+        """Return a list of cell indices where 'o' can play for the best minimax outcome."""
+        player = 1
+        best_score = None
+        best_moves = []
+        for i in range(9):
+            if self[i] == 0:
+                self[i] = player
+                score = -self.minimax(2)
+                self[i] = 0
+                if best_score is None or score > best_score:
+                    best_score = score
+                    best_moves = [i]
+                elif score == best_score:
+                    best_moves.append(i)
+        return best_moves
 
     def best_moves_for_x(self):
-        """Return a list of cell indices where 'x' can play and immediately win."""
-        return self.winning_moves(player=2)
+        """Return a list of cell indices where 'x' can play for the best minimax outcome."""
+        player = 2
+        best_score = None
+        best_moves = []
+        for i in range(9):
+            if self[i] == 0:
+                self[i] = player
+                score = -self.minimax(1)
+                self[i] = 0
+                if best_score is None or score > best_score:
+                    best_score = score
+                    best_moves = [i]
+                elif score == best_score:
+                    best_moves.append(i)
+        return best_moves
 
     def as_latex(self, index=None, best_moves=None):
         # Color map for cell indices (0-8)
