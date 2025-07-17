@@ -1,0 +1,1 @@
+COLOR_NAMES = ['blue', 'cyan', 'violet', 'red', 'orange', 'yellow', 'pink', 'green', 'white'] 

@@ -1,3 +1,5 @@
+from colors import COLOR_NAMES
+
 class Board:
     def __init__(self):
         self.board = [0] * 9
@@ -117,8 +119,7 @@ class Board:
         return best_moves
 
     def as_latex(self, index=None, best_moves=None):
-        # Color map for cell indices (0-8)
-        colors = ['red', 'blue', 'green', 'orange', 'purple', 'cyan', 'magenta', 'brown', 'teal']
+        colors = COLOR_NAMES
         out = "\\begin{tikzpicture}\n"
         out += "\\clip (3.75mm,-1mm) rectangle (40.25mm,25mm);\n"
         out += "\\draw[gray] (5mm,5mm) -- (39mm,5mm);\n"
@@ -147,6 +148,9 @@ class Board:
                         f" -- ({c[0]+3}mm,{c[1]+1}mm);\n")
             if best_moves and i in best_moves:
                 color = colors[i % len(colors)]
+                if color == 'white':
+                    # Draw a black outline for clarity
+                    out += f"\\draw[black, line width=1.2mm] ({c[0]+2}mm,{c[1]+2}mm) circle (1mm);\n"
                 out += f"\\fill[{color}] ({c[0]+2}mm,{c[1]+2}mm) circle (1mm);\n"
 
         if index is not None:
