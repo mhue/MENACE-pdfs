@@ -1,6 +1,7 @@
-from make_pdfs import positions
+from positions import get_positions_first_player
 from menace import COLOR_NAMES
 
+positions = get_positions_first_player()
 cell_counts = [0] * 9
 for boards in positions:
     for board in boards:
