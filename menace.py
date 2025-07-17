@@ -53,7 +53,28 @@ class Board:
             out += 3 ** i * self[rot[i]]
         return out
 
-    def as_latex(self, index=None):
+    def winning_moves(self, player=1):
+        """Return a list of cell indices where 'player' can play and immediately win."""
+        moves = []
+        for i in range(9):
+            if self[i] == 0:
+                self[i] = player
+                if self.has_winner():
+                    moves.append(i)
+                self[i] = 0
+        return moves
+
+    def best_moves_for_o(self):
+        """Return a list of cell indices where 'o' can play and immediately win."""
+        return self.winning_moves(player=1)
+
+    def best_moves_for_x(self):
+        """Return a list of cell indices where 'x' can play and immediately win."""
+        return self.winning_moves(player=2)
+
+    def as_latex(self, index=None, best_moves=None):
+        # Color map for cell indices (0-8)
+        colors = ['red', 'blue', 'green', 'orange', 'purple', 'cyan', 'magenta', 'brown', 'teal']
         out = "\\begin{tikzpicture}\n"
         out += "\\clip (3.75mm,-1mm) rectangle (40.25mm,25mm);\n"
         out += "\\draw[gray] (5mm,5mm) -- (39mm,5mm);\n"
@@ -80,6 +101,10 @@ class Board:
                         f" -- ({c[0]+3}mm,{c[1]+3}mm);\n"
                         f"\\draw ({c[0]+1}mm,{c[1]+3}mm)"
                         f" -- ({c[0]+3}mm,{c[1]+1}mm);\n")
+            if best_moves and i in best_moves:
+                color = colors[i % len(colors)]
+                out += f"\\fill[{color}] ({c[0]+2}mm,{c[1]+2}mm) circle (1mm);\n"
+
         if index is not None:
             # Add index at bottom-right corner
             out += f"\\node[anchor=south east, font=\\small] at (39mm,6mm) {{{{ {index} }}}};\n"

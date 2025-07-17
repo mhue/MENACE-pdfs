@@ -39,6 +39,7 @@ assert len(positions[0]) == 1
 assert len(positions[1]) == 12
 assert sum([len(p) for p in positions]) == 304
 
+# Generate original PDFs
 index = 1
 for i, boards in enumerate(positions):
     latex = preamb
@@ -54,3 +55,20 @@ for i, boards in enumerate(positions):
         f.write(latex)
     assert os.system(
         f"pdflatex -output-directory output output/boxes{i}.tex") == 0
+
+# Generate PDFs with best moves highlighted
+index = 1
+for i, boards in enumerate(positions):
+    latex = preamb
+    for j, board in enumerate(boards):
+        best_moves = board.best_moves_for_o()
+        latex += board.as_latex(index=index, best_moves=best_moves)
+        latex += "\n"
+        if (j + 1) % 5 == 0:
+            latex += "\n\\noindent"
+        index += 1
+    latex += postamb
+    with open(f"output/boxes_best{i}.tex", "w") as f:
+        f.write(latex)
+    assert os.system(
+        f"pdflatex -output-directory output output/boxes_best{i}.tex") == 0
