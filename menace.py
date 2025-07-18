@@ -1,3 +1,5 @@
+from colors import COLOR_NAMES
+
 class Board:
     def __init__(self):
         self.board = [0] * 9
@@ -53,7 +55,71 @@ class Board:
             out += 3 ** i * self[rot[i]]
         return out
 
-    def as_latex(self, index=None):
+    def winning_moves(self, player=1):
+        """Return a list of cell indices where 'player' can play and immediately win."""
+        moves = []
+        for i in range(9):
+            if self[i] == 0:
+                self[i] = player
+                if self.has_winner():
+                    moves.append(i)
+                self[i] = 0
+        return moves
+
+    def minimax(self, player):
+        """Return the minimax score for the current board for the given player (1 for 'o', 2 for 'x')."""
+        # Check for terminal state
+        if self.has_winner():
+            # If the previous move was by the opponent, the opponent won
+            return -1
+        if all(self[i] != 0 for i in range(9)):
+            return 0  # Draw
+        # Try all possible moves
+        scores = []
+        for i in range(9):
+            if self[i] == 0:
+                self[i] = player
+                score = -self.minimax(2 if player == 1 else 1)
+                scores.append(score)
+                self[i] = 0
+        return max(scores) if scores else 0
+
+    def best_moves_for_o(self):
+        """Return a list of cell indices where 'o' can play for the best minimax outcome."""
+        player = 1
+        best_score = None
+        best_moves = []
+        for i in range(9):
+            if self[i] == 0:
+                self[i] = player
+                score = -self.minimax(2)
+                self[i] = 0
+                if best_score is None or score > best_score:
+                    best_score = score
+                    best_moves = [i]
+                elif score == best_score:
+                    best_moves.append(i)
+        return best_moves
+
+    def best_moves_for_x(self):
+        """Return a list of cell indices where 'x' can play for the best minimax outcome."""
+        player = 2
+        best_score = None
+        best_moves = []
+        for i in range(9):
+            if self[i] == 0:
+                self[i] = player
+                score = -self.minimax(1)
+                self[i] = 0
+                if best_score is None or score > best_score:
+                    best_score = score
+                    best_moves = [i]
+                elif score == best_score:
+                    best_moves.append(i)
+        return best_moves
+
+    def as_latex(self, index=None, best_moves=None):
+        colors = COLOR_NAMES
         out = "\\begin{tikzpicture}\n"
         out += "\\clip (3.75mm,-1mm) rectangle (40.25mm,25mm);\n"
         out += "\\draw[gray] (5mm,5mm) -- (39mm,5mm);\n"
@@ -80,6 +146,13 @@ class Board:
                         f" -- ({c[0]+3}mm,{c[1]+3}mm);\n"
                         f"\\draw ({c[0]+1}mm,{c[1]+3}mm)"
                         f" -- ({c[0]+3}mm,{c[1]+1}mm);\n")
+            if best_moves and i in best_moves:
+                color = colors[i % len(colors)]
+                if color == 'white':
+                    # Draw a black outline for clarity
+                    out += f"\\draw[black, line width=1.2mm] ({c[0]+2}mm,{c[1]+2}mm) circle (1mm);\n"
+                out += f"\\fill[{color}] ({c[0]+2}mm,{c[1]+2}mm) circle (1mm);\n"
+
         if index is not None:
             # Add index at bottom-right corner
             out += f"\\node[anchor=south east, font=\\small] at (39mm,6mm) {{{{ {index} }}}};\n"

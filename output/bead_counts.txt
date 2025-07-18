@@ -1,0 +1,3 @@
+pink:  98 | green : 13 | white :   7
+red :  74 | orange: 95 | yellow:  75
+blue: 110 | cyan  : 68 | violet: 102
