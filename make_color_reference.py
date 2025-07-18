@@ -39,6 +39,7 @@ for i, color in enumerate(COLOR_NAMES):
     cx = margin + x * cell_size + cell_size // 2
     cy = margin + y * cell_size + cell_size // 2
     color_latex += f'  \\fill[{color}] ({cx}mm, {cy}mm) circle (18mm);'
+    color_latex += f'  \\draw[black, line width=1.5mm] ({cx}mm, {cy}mm) circle (18mm);'
 color_latex += postamb
 
 with open('output/colors_reference.tex', 'w') as f:
