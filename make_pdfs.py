@@ -1,6 +1,7 @@
 import os
 from latex import preamb, postamb
 from positions import get_positions_first_player
+from colors import COLOR_NAMES_FIRST
 
 positions = get_positions_first_player()
 
@@ -9,7 +10,7 @@ index = 1
 for i, boards in enumerate(positions):
     latex = preamb
     for j, board in enumerate(boards):
-        latex += board.as_latex(index=index)
+        latex += board.as_latex(index=index, palette=COLOR_NAMES_FIRST)
         latex += "\n"
         if (j + 1) % 5 == 0:
             latex += "\n\\noindent"
@@ -27,7 +28,7 @@ for i, boards in enumerate(positions):
     latex = preamb
     for j, board in enumerate(boards):
         best_moves = board.best_moves_for_o()
-        latex += board.as_latex(index=index, best_moves=best_moves)
+        latex += board.as_latex(index=index, best_moves=best_moves, palette=COLOR_NAMES_FIRST)
         latex += "\n"
         if (j + 1) % 5 == 0:
             latex += "\n\\noindent"

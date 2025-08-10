@@ -1,4 +1,3 @@
-from colors import COLOR_NAMES
 
 class Board:
     def __init__(self):
@@ -118,8 +117,8 @@ class Board:
                     best_moves.append(i)
         return best_moves
 
-    def as_latex(self, index=None, best_moves=None):
-        colors = COLOR_NAMES
+    def as_latex(self, index=None, best_moves=None, *, palette):
+        colors = palette
         out = "\\begin{tikzpicture}\n"
         out += "\\clip (3.75mm,-1mm) rectangle (40.25mm,25mm);\n"
         out += "\\draw[gray] (5mm,5mm) -- (39mm,5mm);\n"
