@@ -4,7 +4,7 @@ COLOR_NAMES_FIRST = [
 
 # Alternate palette (e.g., for second-player visuals)
 COLOR_NAMES_SECOND = [
-    'red', 'orange', 'yellow', 'green', 'cyan', 'blue', 'violet', 'pink', 'white'
+    'red', 'cyan', 'violet', 'yellow', 'pink', 'orange', 'green', 'white', 'blue'
 ]
 
 # Backward compatibility: default palette used by existing code

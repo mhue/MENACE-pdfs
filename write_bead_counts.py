@@ -1,5 +1,5 @@
 from positions import get_positions_first_player
-from menace import COLOR_NAMES
+from colors import COLOR_NAMES_FIRST as COLOR_NAMES
 import os
 
 positions = get_positions_first_player()
