@@ -1,4 +1,5 @@
 from colors import COLOR_NAMES_FIRST, COLOR_NAMES_SECOND
+import os
 
 preamb = r"""\documentclass{article}
 \usepackage{tikz}
@@ -56,5 +57,4 @@ color_latex += postamb
 with open('output/colors_reference.tex', 'w') as f:
     f.write(color_latex)
 
-import os
-os.system('pdflatex -output-directory output output/colors_reference.tex') 
+os.system('pdflatex -output-directory output output/colors_reference.tex')

@@ -1,4 +1,5 @@
 from positions import get_positions_first_player
+from menace import Board
 
 positions = get_positions_first_player()
 
@@ -14,7 +15,6 @@ rotations = [
     (0, 3, 6, 1, 4, 7, 2, 5, 8)
 ]
 
-from menace import Board
 
 def board_symmetries(board):
     syms = []

@@ -1,5 +1,6 @@
 from positions import get_positions_first_player
 from menace import COLOR_NAMES
+import os
 
 positions = get_positions_first_player()
 cell_counts = [0] * 9
@@ -10,7 +11,6 @@ for boards in positions:
 
 rows = [[6, 7, 8], [3, 4, 5], [0, 1, 2]]
 
-import os
 os.makedirs("output", exist_ok=True)
 
 # Determine the max width for color names and counts in each column
