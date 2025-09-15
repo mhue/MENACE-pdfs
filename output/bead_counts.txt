@@ -1,3 +1,9 @@
+FIRST
 pink:  98 | green : 13 | white :   7
 red :  74 | orange: 95 | yellow:  75
 blue: 110 | cyan  : 68 | violet: 102
+
+SECOND
+green : 90 | white: 19 | blue  :  8
+yellow: 56 | pink : 87 | orange: 76
+red   : 84 | cyan : 70 | violet: 97

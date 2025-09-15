@@ -1,0 +1,30 @@
+MENACE Position Summary
+======================
+
+First Player (Machine plays O):
+Total positions: 2201
+Sample positions:
+  ......... -> Box 1
+  .......ox -> Box 10
+  .......xo -> Box 13
+  ......o.x -> Box 8
+  ......ox. -> Box 13
+  ......x.o -> Box 8
+  ......xo. -> Box 10
+  .....o..x -> Box 10
+  .....o.x. -> Box 7
+  .....ooxx -> Box 109
+
+Second Player (Machine plays X):
+Total positions: 2097
+Sample positions:
+  ........o -> Box 3
+  .......o. -> Box 2
+  ......o.. -> Box 3
+  ......oox -> Box 38
+  ......oxo -> Box 37
+  ......xoo -> Box 38
+  .....o... -> Box 2
+  .....o.ox -> Box 34
+  .....o.xo -> Box 33
+  .....oo.x -> Box 20
