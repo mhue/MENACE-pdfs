@@ -38,7 +38,8 @@ def format_section(title, color_names, counts):
     lines = [title]
     for row in rows:
         line = " | ".join(
-            f"{color_names[i].ljust(color_widths[j])}: {str(counts[i]).rjust(count_widths[j])}"
+            f"{color_names[i].ljust(color_widths[j])}: "
+            f"{str(counts[i]).rjust(count_widths[j])}"
             for j, i in enumerate(row)
         )
         lines.append(line)
@@ -50,13 +51,16 @@ def main():
 
     # FIRST player (o to move)
     positions_first = get_positions_first_player()
-    counts_first = compute_cell_counts(positions_first, lambda b: b.best_moves_for_o())
+    counts_first = compute_cell_counts(positions_first,
+                                       lambda b: b.best_moves_for_o())
     section_first = format_section("FIRST", COLOR_NAMES_FIRST, counts_first)
 
     # SECOND player (x to move)
     positions_second = get_positions_second_player()
-    counts_second = compute_cell_counts(positions_second, lambda b: b.best_moves_for_x())
-    section_second = format_section("SECOND", COLOR_NAMES_SECOND, counts_second)
+    counts_second = compute_cell_counts(positions_second,
+                                        lambda b: b.best_moves_for_x())
+    section_second = format_section("SECOND", COLOR_NAMES_SECOND,
+                                    counts_second)
 
     with open("output/bead_counts.txt", "w") as f:
         f.write(section_first + "\n\n" + section_second + "\n")
